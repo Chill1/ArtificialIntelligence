@@ -1,0 +1,82 @@
+\documentclass[a4paper]{article}
+\usepackage[letterpaper, margin=1in]{geometry} % page format
+\usepackage{listings} % this package is for including code
+\usepackage{graphicx} % this package is for including figures
+\usepackage{amsmath}  % this package is for math and matrices
+\usepackage{amsfonts} % this package is for math fonts
+\usepackage{tikz} % for drawings
+\usepackage{hyperref} % for urls
+
+\title{Homework 00}
+\author{Charles Hill}
+\date{9/5/16}
+
+\begin{document}
+\lstset{language=Python}
+
+\maketitle
+
+\section{Problem 1}
+To find the the value for x that maximizes g(x) we need to take the derivative and solve for 0. In the case that value of x is 4.
+\begin{equation}
+\begin{align}
+  g(x) = -3x^{2} + 24x - 30 \\
+	g'(x) = -6x +24 \\
+	0 = -6x + 24 \\
+	-24 = -6x \\
+	x = 4 \\
+\end{align}	
+\end{equation}
+
+\section{Problem 2}
+We need to differentiate the equation twice. 
+\begin{equation}
+\begin{align}
+  f(x) = 3x_{0}^{3} + 2x_{0}x_{1}^{2} - 8 \\
+	f'(x_{0}) = 6x_{0}^{2} + 2x_{1}^{2} \\
+	f'(x_{1}) = 4x_{0}x_{1}\\
+\end{align}	
+\end{equation}
+
+\section{Problem 3}
+(a) We can not multiple the two matrices as they are both 2x3 and therefore do not line up when they are multiplied. \\
+(b) We can use code to multiply the transpose of A with B. \\
+
+\begin{lstlisting}[frame=single]
+import numpy as np
+
+a = [[1, 4], [2, -1], [-3, 3]]
+b = [[-2, 0, 5], [0, -1, 4]]
+
+print np.dot(a, b)
+\end{lstlisting}
+
+\begin{lstlisting}
+[[-2 -4 21]
+[-4 1 6]]
+[6 -3 3]
+\end{lstlisting}
+
+The resulting matrix has a rank of 2.
+
+\section{Problem 4}
+A simple Gaussian is the function that creates the form of the bell curve that is commonly used in statistics. \\
+A multivariate Guassian allows for the distribution to be multidimensional. \\
+Bernoulli is the discrete distribution that has only two values. Generally it is representated as a 0 and a 1 where 1 could be called "`success"' \\
+The binomial distribution occurs when obtaining 'n' successes out 'N' Bernoulli trials. \\
+Exponential distribution is the probability distribution that describes the time between events in a process that occurs continuously and independently at a constant rate. \\
+
+\section{Problem 6}
+If X~N(2,3). The expected value would be 2.5 because it is a normal distribution. \\
+
+\section{Problem 7}
+(a) If y = 1.1, that the expected x* when Z = N (N being the natural numbers) would be 1. \\
+(b) Problem7Picture.jpg is the solution. The red dot is the where x* would be.
+
+\section{Problem 8}
+(a) Using $e^{-y}$ as y goes to infinity, the value will only become a smaller and smaller fraction. As y goes to negative infinity then all the values will be 0. Therefore the value for the integral from negative infinity to infinity will just be 1. \\
+(b) The value of y would be e because as y approaches infinity y would be multiplied by $e^{-y}$ and thus the value would just be e. As y approaches negative infinity the value would just be 0. \\
+(c) The variance would be 2.95 \\
+(d) The expected value would just be e. \\
+
+\end{document}
