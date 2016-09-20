@@ -9,9 +9,6 @@ class Perceptron:
         xA, yA, xB, yB, xC, yC,xD, yD, xE, yE, xF, yF = [random.uniform(-1, 1) for i in range(12)]
         self.V = np.array([(xB * yA - xA * yB), (yB - yA), (xA - xB), (xC * yD - xD * yC), (yC - yD),(xD - xC),
                            (xF * yE - xE * yF), (yF - yE), (xE -xF),0,1])
-        #self.V = np.array([(xB * yA - xA * yB), (yB - yA), (xA - xB), (xC * yB - xB * yC), (yC - yB),
-         #                  (xB - xC), (xD * yC - xC * yD), (yD - yC), (xC - xD), (xE * yD - xD * yE),
-          #                 (yE - yD), (xD - xE), (xF * yE - xE * yF), (yF - yE), (xE - xF)])
         self.X = self.generate_points(N)
 
     def generate_points(self, N):
