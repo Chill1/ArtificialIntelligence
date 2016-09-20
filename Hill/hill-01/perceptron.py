@@ -6,15 +6,16 @@ import matplotlib.pyplot as plt
 class Perceptron:
     def __init__(self, N):
         # Random linearly separated data
-        xA,yA,xB,yB = [random.uniform(-1, 1) for i in range(4)]
-        self.V = np.array([xB*yA-xA*yB, yB-yA, xA-xB])
+        xA,yA,xB,yB,xC,yC,xD,yD,xE,yE,xF,yF = [random.uniform(-1, 1) for i in range(12)]
+        #self.V = np.array([xB*yA-xA*yB, yB-yA, xA-xB, xC, yC, xD, yD, xE, yE, xF, yF])
+        self.V = np.array([(xB * yA - xA * yB), (yB - yA), (xA - xB), (xC * yD - xD * yC), (yC - yD),(xD - xC), (xF * yE - xE * yF), (yF - yE), (xE -xF),0,1]) #self.V = np.array([(xB * yA - xA * yB), (yB - yA), (xA - xB), (xC * yB - xB * yC), (yC - yB), # (xB - xC), (xD * yC - xC * yD), (yD - yC), (xC - xD), (xE * yD - xD * yE), # (yE - yD), (xD - xE), (xF * yE - xE * yF), (yF - yE), (xE - xF)])
         self.X = self.generate_points(N)
  
     def generate_points(self, N):
         X = []
         for i in range(N):
-            x1,x2 = [random.uniform(-1, 1) for i in range(2)]
-            x = np.array([1,x1,x2])
+            x1,x2,x3,x4,x5,x6,x7,x8,x9,x10 = [random.uniform(-1, 1) for i in range(10)]
+            x = np.array([1,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10])
             s = int(np.sign(self.V.T.dot(x)))
             X.append((x, s))
         return X
