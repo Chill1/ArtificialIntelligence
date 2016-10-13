@@ -3,6 +3,8 @@ import random
 import os, subprocess
 import matplotlib.pyplot as plt
 from sklearn.datasets.samples_generator import make_blobs
+import copy
+from numpy import genfromtxt
  
 class Perceptron:
     def __init__(self, N):
@@ -29,6 +31,10 @@ class Perceptron:
     	
     	#c0 = plt.scatter(X[y==-1,0], X[y==-1,1], s=20, color='r', marker='x')
     	#c1 = plt.scatter(X[y==1,0], X[y==1,1], s=20, color='b', marker='o')
+
+    	#plt.legend((c0, c1), ('All_O'))
+    	#print X
+    	#print y
         return X, y
     
  
@@ -86,57 +92,57 @@ class Perceptron:
  
     def pla(self, save=False, line=False):
         # Initialize the weigths to zeros
-        w = self.linRegW
-        self.bestW = w
-        self.plaError = []
-        self.pocketError = []
+
+         # Initialize the weights to solution of linear regression
+        if line:
+        	w = self.linRegW
+        else:
+        	w = np.zeros(3)
+        w0 = np.zeros(3)
+        bestW = []
+        pocketError = []
+        # Reassign variables
         X, N = self.X, len(self.X)
+        # Initialize convergence and iteration counters
+        count = 0
         it = 0
-        self.plaError.append(self.classification_error(w))
-        self.pocketError.append(self.plaError[it])
-        self.pocketError.append(w)
         # Iterate until all points are correctly classified
         while self.classification_error(w) != 0:
             it += 1
-            #else:
-
             # Pick random misclassified point
-            x, s = self.choose_miscl_point(w)
+            x, y = self.choose_miscl_point(w0)
             # Update weights
-            #print w
-            w += s*x
-
-            if (np.all(self.pocketError[it-1] <= w)):
-            	self.pocketError.append(w)
-
-            #print w
-            if it > 20:
+            w0 += y*x
+            # Update if new weights are better
+            pocketError.append(self.classification_error(w0))
+            bestW.append(self.classification_error(w))
+            if self.classification_error(w)>self.classification_error(w0):
+            	w = copy.deepcopy(w0)
+            	count = 0
+            else:
+                count += 1
+            # Converge after 500 iterations with the same wieghts
+            if count > 10:
             	break
-            
-            #if save:
-                #self.plot(vec=w)
-                #plt.title('N = %s, Iteration %s\n' \
-                #          % (str(N),str(it)))
-                #plt.savefig('p_N%s_it%s' % (str(N),str(it)), \
-                #            dpi=200, bbox_inches='tight')
-                #plt.close()
-        self.w = w
-
-        if save:
-        	if line:
-        		w = self.plot(vec=w, line=True)
-        	else:
+            # Converge after 30 iterations overall 
+            if it > 10000:
+                break
+            if save:
         		self.plot(vec = w)
         		plt.title('N = %s, Iteration %s\n' \
                        % (str(N),str(it)))
         		plt.savefig('p_N%s_it%s' % (str(N),str(it)), \
                            dpi=200, bbox_inches='tight')
-        print self.pocketError
-        if line:
-        	return w
-        else:
-        	return it
+        self.w = w
+        print pocketError
+        print bestW
 
+        if save:
+        	self.plot(vec = w)
+        	plt.title('N = %s, Iteration %s\n' \
+                       % (str(N),str(it)))
+        	plt.savefig('p_N%s_it%s' % (str(N),str(it)), \
+                           dpi=200, bbox_inches='tight')
 
         return it
  
@@ -145,27 +151,11 @@ class Perceptron:
         return self.classification_error(vec, pts=check_pts)
 
 def main():
-    #it = np.zeros(1)
-    it = np.empty([5,1])
     for x in range(1, 2):
         p = Perceptron(100)
-        it[x-1] = p.pla(save=True)
-    	plt.ylim(-10,10)
-    	l = np.linspace(0.2, 5, 25, endpoint=True)
-    	plt.xlabel('x-axis')
-    	plt.ylabel('y-axis')
-    	plt.savefig('Perceptron: ' + str(x), \
-    			dpi = 200, bbox_inches='tight')
+        it = p.pla(save=True)
 
     print it
-    
-
-    #n, bins, patches = plt.hist(it, 50, normed=1, facecolor='green', alpha=0.75)
-    #plt.show()
-
-
-    #p.plot()
-
 
 main()
 
