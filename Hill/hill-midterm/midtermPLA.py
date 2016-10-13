@@ -118,7 +118,7 @@ class Perceptron:
             else:
                 count += 1
             # Converge after 500 iterations with the same wieghts
-            if count > 100:
+            if count > 1000:
             	break
             # Converge after 30 iterations overall 
             if it > 10000:
@@ -149,7 +149,7 @@ class Perceptron:
 def main():
     for x in range(1, 2):
         p = Perceptron(7291)
-        it = p.pla()
+        it = p.pla(line=True)
 
 
     print it

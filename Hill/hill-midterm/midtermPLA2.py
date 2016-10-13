@@ -127,7 +127,7 @@ class Perceptron:
             else:
                 count += 1
             # Converge after 500 iterations with the same wieghts
-            if count > 30:
+            if count > 1000:
             	break
             # Converge after 30 iterations overall 
             if it > 10000:
